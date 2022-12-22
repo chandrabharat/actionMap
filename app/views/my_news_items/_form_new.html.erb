@@ -1,0 +1,91 @@
+<% require 'news-api' %>
+<% flash.keep %>
+<% newsapi = News.new("446908a29a2b43b7b728c5433895d6c0") %>
+<% top_news_articles = newsapi.get_everything(q: "#{@representative.name}+#{flash[:issue]}", language: 'en', sortBy: 'popularity', page: 1).slice(0, 5) %>
+<% @articles = NewsItem.news_api_to_articles_params(top_news_articles) %>
+
+<%= form_for news_item, url: form_url, html: { method: form_method } do |f| %>
+  <% if news_item.errors.any? %>
+    <div class="alert alert-danger">
+      <h2>
+        "#{pluralize(news_item.errors.count, 'error')} prohibited this news from being saved:"
+      </h2>
+      <ul>
+        <% puts :representative %>
+        <% news_item.errors.full_messages.each do |message| %>
+          <li>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group row">
+    <div class="col-sm-5">
+      <%= label :news_item, 'Representative: ', class: 'col-form-label' %>
+      <%= link_to @representative.name, show_path(@representative), readonly: true, class: 'form-control-plaintext' %>
+    </div>
+
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-5">
+      <%= label :news_item, 'Issue: ', class: 'col-form-label' %>
+      <%= text_field :news_item, :issue, value: flash[:issue], readonly: true, class: 'form-control-plaintext' %>
+    </div>
+  </div>
+  <div class="col-sm-36"></div>
+  <%= label :news_item, 'Select an article:', class: 'col-form-label' %>
+  <% if @articles.nil? %>
+    <% flash[:alert] = 'There are no relevant articles.' %>
+  <% end %>
+  <div class=".container">
+    <% @articles.each do |article| %>
+      <div class="form-check">
+        <div class="col-sm-10">
+          <%= radio_button_tag :order, [flash[:issue], '////////', flash[:representative]["id"], '////////', article.title,'////////',  article.link, '////////', article.description] %> Select News </br>
+
+          <div class="form-group row">
+            <%= hidden_field :news_item, :representative_id, value: flash[:representative]["id"], class: 'form-control' %>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-2">
+              <%= label :news_item, :title, 'Title: ', class: 'col-form-label' %>
+            </div>
+            <div class="col-sm-6">
+              <%= text_field :news_item, :title, value: article.title, readonly: true, class: 'form-control-plaintext' %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-2">
+              <%= label :news_item, 'Link:', class: 'col-form-label' %>
+            </div>
+            <div class="col-sm-10">
+              <%= link_to article.link, article.link, readonly: true, class: 'form-control-plaintext' %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= hidden_field :news_item, :link, value: article.link, class: 'form-control' %>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-10">
+              <%= label :news_item, :description, 'Description: ', class: 'col-form-label' %>
+              <%= text_field :news_item, :description, value: article.description, readonly: true, class: 'form-control-plaintext' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-1">
+      <%= label :news_item, :rating, class: 'col-form-label' %>
+    </div>
+    <div class="col-sm-2">
+      <%= select :news_item, :rating, ratings_list, { include_blank: true }, class: 'form-control-plaintext' %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

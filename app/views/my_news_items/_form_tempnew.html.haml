@@ -1,0 +1,175 @@
+- flash.keep
+= form_for news_item, url: form_url, html: { method: form_method } do |f|
+    - if news_item.errors.any?
+        .alert.alert-danger
+            %h2
+                "#{pluralize(news_item.errors.count, 'error')} prohibited this news from being saved:"
+            %ul
+                - puts :representative
+                - news_item.errors.full_messages.each do |message|
+                    %li= message
+
+    .form-group.row
+        .col-sm-2
+            = label :news_item, 'Representative: ', class: 'col-form-label'
+        .col-sm-10
+            = link_to flash[:representative]["name"], show_path(@representative), readonly: true,
+            class: 'form-control-plaintext'
+
+    
+    .form-group.row
+        .col-sm-2
+            = label :news_item, 'Issue: ', class: 'col-form-label'
+        .col-sm-10
+            = text_field :news_item, :issue, value: flash[:issue], readonly: true,
+            class: 'form-control-plaintext'
+
+    
+    .col-sm-36
+    = label :news_item, 'Select an article:', class: 'col-form-label'
+    
+    .form-check
+        .col-sm-10
+            = radio_button :news_item, :title, "This is a temp title1"
+            .form-group.row
+                = hidden_field :news_item, :representative_id, value: flash[:representative]["id"], class: 'form-control'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :title, 'Title: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :title, value: "This is a temp title", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, 'Link:', class: 'col-form-label'
+                .col-sm-6
+                    = link_to "http://www.google.com/search", "http://www.google.com/search", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                = hidden_field :news_item, :link, value: "http://www.google.com/search", class: 'form-control'
+
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :description, 'Description: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :description, value: "This is a temp description", readonly: true,
+                    class: 'form-control-plaintext'
+
+    .form-check
+        .col-sm-10
+            = radio_button :news_item, :title, "This is a temp title2"
+            .form-group.row
+                = hidden_field :news_item, :representative_id, value: flash[:representative]["id"], class: 'form-control'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :title, 'Title: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :title, value: "This is a temp title2", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, 'Link:', class: 'col-form-label'
+                .col-sm-6
+                    = link_to "Temp link 2", "Temp link 2", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                = hidden_field :news_item, :link, value: "http://www.google.com/search", class: 'form-control'
+
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :description, 'Description: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :description, value: "This is a temp description2", readonly: true,
+                    class: 'form-control-plaintext'
+
+    .form-check
+        .col-sm-10
+            = radio_button :news_item, :title, "This is a temp title3"
+            .form-group.row
+                = hidden_field :news_item, :representative_id, value: flash[:representative]["id"], class: 'form-control'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :title, 'Title: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :title, value: "This is a temp title3", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, 'Link:', class: 'col-form-label'
+                .col-sm-6
+                    = link_to "Temp link 3", "Temp link 3", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                = hidden_field :news_item, :link, value: "http://www.google.com/search", class: 'form-control'
+
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :description, 'Description: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :description, value: "This is a temp description3", readonly: true,
+                    class: 'form-control-plaintext'
+
+    .form-check
+        .col-sm-10
+            = radio_button :news_item, :title, "This is a temp title4"
+            .form-group.row
+                = hidden_field :news_item, :representative_id, value: flash[:representative]["id"], class: 'form-control'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :title, 'Title: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :title, value: "This is a temp title4", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, 'Link:', class: 'col-form-label'
+                .col-sm-6
+                    = link_to "Temp link 4", "Temp link 4", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                = hidden_field :news_item, :link, value: "http://www.google.com/search", class: 'form-control'
+
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :description, 'Description: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :description, value: "This is a temp description4", readonly: true,
+                    class: 'form-control-plaintext'
+
+    .form-check
+        .col-sm-10
+            = radio_button :news_item, :title, "This is a temp title5"
+            .form-group.row
+                = hidden_field :news_item, :representative_id, value: flash[:representative]["id"], class: 'form-control'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :title, 'Title: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :title, value: "This is a temp title5", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, 'Link:', class: 'col-form-label'
+                .col-sm-6
+                    = link_to "Temp link 5", "Temp link 5", readonly: true,
+                    class: 'form-control-plaintext'
+            .form-group.row
+                = hidden_field :news_item, :link, value: "http://www.google.com/search", class: 'form-control'
+
+            .form-group.row
+                .col-sm-2
+                    = label :news_item, :description, 'Description: ', class: 'col-form-label'
+                .col-sm-6
+                    = text_field :news_item, :description, value: "This is a temp description5", readonly: true,
+                    class: 'form-control-plaintext'
+
+
+
+    .form-group.row
+        .col-sm-1
+            = label :news_item, :rating, class: 'col-form-label'
+        .col-sm-2
+            = select :news_item, :rating, ratings_list, { include_blank: true },
+            class: 'form-control'
+    .actions
+        = f.submit 'Save', class: 'btn btn-primary'

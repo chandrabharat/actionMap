@@ -1,0 +1,26 @@
+<!--  app/views/representatives/show.html.erb -->
+
+<h1 style="text-align: center;"> Profile Page for <em><%= @representative.name %></em></h1>
+
+<p style="text-align:center;"><img src=<%= @representative.photoURL %> alt="No Photo Found"></p>
+
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">OCD ID</th>
+      <th scope="col">Office</th>
+      <th scope="col">Contact Address</th>
+      <th scope="col">Political Party</th>
+    </tr>
+  </thead>
+    
+  <tbody>
+    <tr>
+      <td><em><%= @representative.name %></em></td>
+      <td><em><%= @representative.ocdid %></em></td>
+      <td><em><%= @representative.title %></em></td>
+      <td><em><%= @representative.contactAddress %></em></td>
+      <td><em><%= @representative.party %></em></td>
+    </tr>
+</table>
